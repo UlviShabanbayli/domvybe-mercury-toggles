@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1b1f25">
+<title>Mercury UI · System settings</title>
+<meta name="description" content="Mercury toggle switches: every switch is a bead of liquid chrome that rolls, stretches and snaps; sliders are mercury threads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/mercury.css">
+<script>
+  // theme is the page's own (never the OS): read the saved settings before first paint so a returning visitor
+  // does not see a flash of the other theme. Older dv56 keys are wiped in app.js.
+  try { const s = JSON.parse(localStorage.getItem('dv56a.settings') || 'null');
+    if (s && s.darkmode === false) document.documentElement.classList.add('theme-light');
+    if (s && s.nightshift === true) document.documentElement.classList.add('night'); } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#settings">Skip to settings</a>
+<div class="backdrop" aria-hidden="true"><i class="glow g-left"></i><i class="glow g-right"></i><i class="glow g-top"></i><i class="beam"></i><i class="grain"></i></div>
+
+<div class="page">
+  <header class="top">
+    <a class="brand" href="#settings" aria-label="Mercury UI, home">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <radialGradient id="lg-chrome" cx="38%" cy="34%" r="75%">
+            <stop offset="0" stop-color="#ffffff"/><stop offset=".28" stop-color="#dfe6ee"/><stop offset=".55" stop-color="#7d8794"/>
+            <stop offset=".78" stop-color="#2a3038"/><stop offset="1" stop-color="#9aa6b4"/>
+          </radialGradient>
+        </defs>
+        <path d="M16 2.5c4.6 6.2 9.5 11.3 9.5 17.1A9.5 9.5 0 0 1 6.5 19.6C6.5 13.8 11.4 8.7 16 2.5Z" fill="url(#lg-chrome)"/>
+        <path d="M11.3 18.4c.3-2.6 1.9-4.9 3.7-7.1" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+      </svg>
+      <span>Mercury <b>UI</b></span>
+    </a>
+    <p class="brandline">Brand: <span>Aura Design</span></p>
+  </header>
+
+  <main id="settings" class="panel" aria-labelledby="ttl-main" tabindex="-1">
+    <canvas class="fx" aria-hidden="true"></canvas>
+    <div class="sheen" aria-hidden="true"></div>
+    <h1 id="ttl-main">System settings</h1>
+    <h2 class="kicker" id="ttl-switches">Mercury toggle switches</h2>
+
+    <ul class="switches" aria-labelledby="ttl-switches">
+      <li class="row" data-key="system">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/><path d="M19.4 13.5a7.7 7.7 0 0 0 0-3l2-1.5-2-3.4-2.3 1a7.6 7.6 0 0 0-2.6-1.5L14.2 2.6h-4l-.4 2.5a7.6 7.6 0 0 0-2.6 1.5l-2.3-1-2 3.4 2 1.5a7.7 7.7 0 0 0 0 3l-2 1.5 2 3.4 2.3-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.3 1 2-3.4Z"/></svg>
+        <div class="txt"><label class="ttl" id="l-system" for="sw-system">System enabled</label><span class="sub" id="d-system">Enable system functions</span></div>
+        <div class="ctl"><span class="w w-off" aria-hidden="true">OFF</span><button class="sw" id="sw-system" type="button" role="switch" aria-checked="true" aria-labelledby="l-system" aria-describedby="d-system"><span class="groove"></span><span class="bead-css"></span></button><span class="w w-on" aria-hidden="true">ON</span></div>
+      </li>
+      <li class="row" data-key="notifications">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.6 2H4.4Z"/><path d="M10 21a2.2 2.2 0 0 0 4 0"/></svg>
+        <div class="txt"><label class="ttl" id="l-notifications" for="sw-notifications">Notifications</label><span class="sub" id="d-notifications">Alerts, badges and banners</span></div>
+        <div class="ctl"><span class="w w-off" aria-hidden="true">OFF</span><button class="sw" id="sw-notifications" type="button" role="switch" aria-checked="true" aria-labelledby="l-notifications" aria-describedby="d-notifications"><span class="groove"></span><span class="bead-css"></span></button><span class="w w-on" aria-hidden="true">ON</span></div>
+      </li>
+      <li class="row" data-key="sounds">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4Z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.3 6.4a8 8 0 0 1 0 11.2"/></svg>
+        <div class="txt"><label class="ttl" id="l-sounds" for="sw-sounds">Sounds</label><span class="sub" id="d-sounds">Play a click at the volume level</span></div>
+        <div class="ctl"><span class="w w-off" aria-hidden="true">OFF</span><button class="sw" id="sw-sounds" type="button" role="switch" aria-checked="true" aria-labelledby="l-sounds" aria-describedby="d-sounds"><span class="groove"></span><span class="bead-css"></span></button><span class="w w-on" aria-hidden="true">ON</span></div>
+      </li>
+      <li class="row" data-key="bluetooth">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7.5 10 9-5 4.5v-18l5 4.5-10 9"/></svg>
+        <div class="txt"><label class="ttl" id="l-bluetooth" for="sw-bluetooth">Bluetooth</label><span class="sub" id="d-bluetooth">Visible as “Studio Mac”</span></div>
+        <div class="ctl"><span class="w w-off" aria-hidden="true">OFF</span><button class="sw" id="sw-bluetooth" type="button" role="switch" aria-checked="true" aria-labelledby="l-bluetooth" aria-describedby="d-bluetooth"><span class="groove"></span><span class="bead-css"></span></button><span class="w w-on" aria-hidden="true">ON</span></div>
+      </li>
+      <li class="row" data-key="nightshift">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.1M12 19.1v2.1M2.8 12h2.1M19.1 12h2.1M5.5 5.5 7 7M17 17l1.5 1.5M5.5 18.5 7 17M17 7l1.5-1.5"/></svg>
+        <div class="txt"><label class="ttl" id="l-nightshift" for="sw-nightshift">Night shift</label><span class="sub" id="d-nightshift">Warm the screen and chrome</span></div>
+        <div class="ctl"><span class="w w-off" aria-hidden="true">OFF</span><button class="sw" id="sw-nightshift" type="button" role="switch" aria-checked="false" aria-labelledby="l-nightshift" aria-describedby="d-nightshift"><span class="groove"></span><span class="bead-css"></span></button><span class="w w-on" aria-hidden="true">ON</span></div>
+      </li>
+      <li class="row" data-key="darkmode">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z"/></svg>
+        <div class="txt"><label class="ttl" id="l-darkmode" for="sw-darkmode">Dark mode</label><span class="sub" id="d-darkmode">Graphite, or silver when off</span></div>
+        <div class="ctl"><span class="w w-off" aria-hidden="true">OFF</span><button class="sw" id="sw-darkmode" type="button" role="switch" aria-checked="true" aria-labelledby="l-darkmode" aria-describedby="d-darkmode"><span class="groove"></span><span class="bead-css"></span></button><span class="w w-on" aria-hidden="true">ON</span></div>
+      </li>
+    </ul>
+
+    <div class="sliders">
+      <div class="sl" data-key="volume">
+        <div class="txt"><label class="ttl" for="sl-volume">Volume</label><span class="sub" id="d-volume">Set output volume</span></div>
+        <div class="rail"><span class="groove"></span><span class="fill-css"></span><input type="range" id="sl-volume" min="0" max="100" step="1" value="72" aria-describedby="d-volume"><output class="bubble" for="sl-volume" aria-hidden="true">72%</output></div>
+      </div>
+      <div class="sl" data-key="brightness">
+        <div class="txt"><label class="ttl" for="sl-brightness">Brightness</label><span class="sub" id="d-brightness">Set the light in the room and the chrome</span></div>
+        <div class="rail"><span class="groove"></span><span class="fill-css"></span><input type="range" id="sl-brightness" min="0" max="100" step="1" value="54" aria-describedby="d-brightness"><output class="bubble" for="sl-brightness" aria-hidden="true">54%</output></div>
+      </div>
+    </div>
+  </main>
+
+  <p class="hint"><span class="hint-pointer">Drag a bead, or click or tap a switch.</span> <span class="hint-keys">Space toggles, arrow keys move a slider.</span></p>
+  <p class="foot">Mercury UI is a fictional design system. Liquid chrome rendered live in WebGL.</p>
+</div>
+
+<div class="night-veil" aria-hidden="true"></div>
+<div class="sr-only" id="live" aria-live="polite"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
